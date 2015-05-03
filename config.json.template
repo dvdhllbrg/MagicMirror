@@ -1,0 +1,27 @@
+{
+  "google": {
+    "clientID": "Your client ID",
+    "clientSecret": "Your client secret.",
+    "redirectURL": "http://localhost:8080/auth",
+    "calendarIDs": [
+      "Your Calendar ID", 
+      "Your Calendar ID"
+    ]
+  },
+  "twitter": {
+    "consumer_key": "Your consumer key",
+    "consumer_secret": "Your consumer secret",
+    "access_token_key": "Your access token key",
+    "access_token_secret": "Your access token secret"
+  },
+  "owm": {
+    "APIkey": "Your API key",
+    "cityID": "The city ID you want weather for",
+    "units": "metric",
+    "lang": "The language you want"
+  },
+  "vasttrafik": {
+    "APIkey": "Your API key",
+    "stationID": "The station ID you want the departure board for."
+  }
+}

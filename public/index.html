@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="mm">
+<head>
+  <meta charset="UTF-8">
+  <title>Magic Mirror</title>
+  <link href='http://fonts.googleapis.com/css?family=Roboto:100,400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="style/reset.css">
+  <link rel="stylesheet" href="style/style.css">
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script><!-- load angular -->
+  <script>window.angular || document.write('<script src="/node_modules/angular/angular.min.js"><\/script>');</script>
+    <script src="js/angular-locale_sv-se.js"></script>
+  <script src="js/core.js"></script>
+</head>
+<body data-ng-controller="MainController">
+  <div id="now">
+    <span id="date">{{now | date:'EEEE d MMMM'}}</span>
+    <br>
+    <span id="clock">{{now | date:'HH:mm'}}</span>
+  </div>
+  <ul id="schedule">
+    <li data-ng-repeat="event in schedule">
+      <span class="time">{{event.start.dateTime | date:'HH:mm'}}</span>
+      <span class="event_name">{{event.summary}}</span>
+    </li>
+    <li data-ng-hide="schedule.length">Inga händelser i dag.</li>
+  </ul>
+  <div id="weather">
+      <span id="description">{{weather.weather[0].description}}</span><span data-icon="{{weatherIcon}}"></span>
+      <br>
+      <span id="temperature">{{weather.main.temp | number: 0}}&deg;C</span>
+  </div>
+   <ul id="departures">
+    <li data-ng-repeat="departure in departures">
+      <span class="departure">Linje {{departure.sname}} mot {{departure.direction}}.</span><span class="time">{{departure.time}}</span>
+    </li>
+  </ul>
+  <div id="tweet">
+    <span class="screen_name">@{{tweet.user.screen_name}}</span>
+    <br>
+    <span class="text">{{tweet.text}}</span>
+  </div>
+</body>
+</html>
