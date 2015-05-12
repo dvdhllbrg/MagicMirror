@@ -80,7 +80,7 @@ app.get('/api/schedule', function(req, res) {
     // Get the time for today and tomorrow
     var today = moment().format('YYYY-MM-DD') + 'T';
     var items1, items2, allItems;
-    itesm1 = items2 = allItems = [];
+    items1 = items2 = allItems = longItems = shortItems = [];
 
     // Fetch events from first calendar.
     calendar.events.list({
@@ -112,19 +112,18 @@ app.get('/api/schedule', function(req, res) {
          } else {
           // Merge events from the two calendars to a single list
           items2 = events.items;
-          if(items1.length && items2.length) {
-            items1.forEach(function(item, index) {
-             while(item.start.dateTime > items2[0].start.dateTime) {
-               allItems.push(items2.splice(0, 1));
-             }
-             allItems.push(item);
-            });
-           } else if(items1.length) {
-            allItems.push(items1);
-           } else if(items2.length) {
-            allItems.push(items2);
-           }
-          res.json(allItems[0]);
+          longItems = items1.length > items2.length ? items1 : items2;
+          shortItems = items1.length > items2.length ? items2 : items1;
+          var item1date, item2date;
+
+          longItems.forEach(function(item, index) {
+            while(shortItems[0].start.dateTime && item.start.dateTime < shortItems[0].start.dateTime) {
+              allItems.push(shortItems.splice(0, 1));
+            }
+            allItems.push(item);
+          });
+         
+          res.json(allItems);
          }
        });
     }
